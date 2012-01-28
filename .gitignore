@@ -1,0 +1,9 @@
+CMakeFiles/*
+CMakeCache.txt
+install_manifest.txt
+dist/bin/OgreApp
+dist/bin/OgreLogfile.log
+dist/bin/ogre.cfg
+Makefile
+cmake_install.cmake
+OgreLogFile.log
