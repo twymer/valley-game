@@ -56,6 +56,14 @@ find_package(OGRE REQUIRED)
 #if(NOT "${OGRE_VERSION_NAME}" STREQUAL "Cthugha")
 #  message(SEND_ERROR "You need Ogre 1.7 Cthugha to build this.")
 #endif()
+
+
+if (OGRE_Terrain_FOUND)
+  set(OGRE_LIBRARIES ${OGRE_LIBRARIES} ${OGRE_Terrain_LIBRARIES})  
+  message(STATUS "Found OGRE_Terrain: ${OGRE_Terrain_LIBRARIES}")
+else (OGRE_Terrain_FOUND)
+  message(SEND_ERROR "OgreTerrain Library not found.")
+endif(OGRE_Terrain_FOUND)
  
 find_package(OIS REQUIRED)
  
