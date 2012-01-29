@@ -4,6 +4,7 @@
 
 #include <OgreLight.h>
 #include <OgreWindowEventUtilities.h>
+#include <OgreStringConverter.h>
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -150,33 +151,33 @@ void DemoApp::setupDemoScene()
 // Note: Pressing T on runtime will discarde those settings
 //  Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
 //  Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
- 
+
     Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
     lightdir.normalise();
- 
+
     Ogre::Light* light = OgreFramework::getSingletonPtr()->m_pSceneMgr->createLight("tstLight");
     light->setType(Ogre::Light::LT_DIRECTIONAL);
     light->setDirection(lightdir);
     light->setDiffuseColour(Ogre::ColourValue::White);
     light->setSpecularColour(Ogre::ColourValue(0.4, 0.4, 0.4));
- 
+
     OgreFramework::getSingletonPtr()->m_pSceneMgr->setAmbientLight(Ogre::ColourValue(0.2, 0.2, 0.2));
- 
+
     mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
- 
+
     mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("ValleyTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
- 
+
     configureTerrainDefaults(light);
- 
+
     for (long x = 0; x <= 0; ++x)
         for (long y = 0; y <= 0; ++y)
             defineTerrain(x, y);
- 
+
     // sync load since we want everything in place when we start
     mTerrainGroup->loadAllTerrains(true);
-    
+
     if (mTerrainsImported)
     {
         Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();
@@ -186,7 +187,7 @@ void DemoApp::setupDemoScene()
             initBlendMaps(t);
         }
     }
- 
+
     mTerrainGroup->freeTemporaryResources();
  
 //     Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
@@ -207,14 +208,12 @@ void DemoApp::setupDemoScene()
 //     m_pOgreHeadNode->attachObject(m_pOgreHeadEntity);
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
-
 void DemoApp::runDemo()
 {
     OgreFramework::getSingletonPtr()->m_pLog->logMessage("Start main loop...");
 
-    double timeSinceLastFrame = 0;
-    double startTime = 0;
+    int timeSinceLastFrame = 0;
+    int startTime = 0;
 
     OgreFramework::getSingletonPtr()->m_pRenderWnd->resetStatistics();
 
@@ -226,7 +225,7 @@ void DemoApp::runDemo()
 
         if(OgreFramework::getSingletonPtr()->m_pRenderWnd->isActive())
         {
-            startTime = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU();
+            startTime = OgreFramework::getSingletonPtr()->m_pTimer->getMilliseconds();
 
             OgreFramework::getSingletonPtr()->m_pKeyboard->capture();
             OgreFramework::getSingletonPtr()->m_pMouse->capture();
@@ -234,7 +233,7 @@ void DemoApp::runDemo()
             OgreFramework::getSingletonPtr()->updateOgre(timeSinceLastFrame);
             OgreFramework::getSingletonPtr()->m_pRoot->renderOneFrame();
 
-            timeSinceLastFrame = OgreFramework::getSingletonPtr()->m_pTimer->getMillisecondsCPU() - startTime;
+            timeSinceLastFrame = OgreFramework::getSingletonPtr()->m_pTimer->getMilliseconds() - startTime;
         }
         else
         {

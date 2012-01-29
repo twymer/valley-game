@@ -14,7 +14,7 @@ template<> OgreFramework* Ogre::Singleton<OgreFramework>::ms_Singleton = 0;
 
 OgreFramework::OgreFramework()
 {
-    m_MoveSpeed = 50.0f;
+    m_MoveSpeed = 40.0f;
     m_RotateSpeed = 0.3f;
 
     m_bShutDownOgre = false;
@@ -32,8 +32,8 @@ OgreFramework::OgreFramework()
     m_pKeyboard = 0;
     m_pMouse = 0;
 
-    m_pTrayMgr          = 0;
-    m_FrameEvent        = Ogre::FrameEvent();
+    m_pTrayMgr = 0;
+    m_FrameEvent = Ogre::FrameEvent();
 }
 
 //|||||||||||||||||||||||||||||||||||||||||||||||

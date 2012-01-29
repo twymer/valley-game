@@ -25,19 +25,19 @@ class DemoApp : public OIS::KeyListener
     private:
         void setupDemoScene();
         void runDemo();
-	void defineTerrain(long int, long int);
-	void initBlendMaps(Ogre::Terrain*);
-	void configureTerrainDefaults(Ogre::Light*);
-	void destroyScene(void);
-	
-	Ogre::TerrainGlobalOptions* mTerrainGlobals;
-	Ogre::TerrainGroup* mTerrainGroup;
-	bool mTerrainsImported;
+        void defineTerrain(long int, long int);
+        void initBlendMaps(Ogre::Terrain*);
+        void configureTerrainDefaults(Ogre::Light*);
+        void destroyScene(void);
 
-        Ogre::SceneNode*			m_pOgreHeadNode;
-        Ogre::Entity*				m_pOgreHeadEntity;
+        Ogre::TerrainGlobalOptions* mTerrainGlobals;
+        Ogre::TerrainGroup* mTerrainGroup;
+        bool mTerrainsImported;
 
-        bool						m_bShutdown;
+        Ogre::SceneNode* m_pOgreHeadNode;
+        Ogre::Entity* m_pOgreHeadEntity;
+
+        bool m_bShutdown;
 };
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
