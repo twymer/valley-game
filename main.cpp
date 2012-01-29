@@ -1,6 +1,6 @@
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-#include "DemoApp.hpp"
+#include "ValleyApp.hpp"
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -17,8 +17,8 @@ int main(int argc, char **argv)
 {
     try
     {
-        DemoApp demo;
-        demo.startDemo();
+        ValleyApp game;
+        game.startGame();
     }
     catch(std::exception& e)
     {

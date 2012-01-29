@@ -104,12 +104,12 @@ endif()
  
 set(HDRS
   ./OgreFramework.hpp
-  ./DemoApp.hpp
+  ./ValleyApp.hpp
 )
  
 set(SRCS
   ./OgreFramework.cpp
-  ./DemoApp.cpp
+  ./ValleyApp.cpp
   ./main.cpp
 )
  

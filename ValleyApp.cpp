@@ -1,6 +1,6 @@
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-#include "DemoApp.hpp"
+#include "ValleyApp.hpp"
 
 #include <OgreLight.h>
 #include <OgreWindowEventUtilities.h>
@@ -8,7 +8,7 @@
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-DemoApp::DemoApp()
+ValleyApp::ValleyApp()
 {
     m_pOgreHeadNode = 0;
     m_pOgreHeadEntity = 0;
@@ -17,13 +17,13 @@ DemoApp::DemoApp()
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-DemoApp::~DemoApp()
+ValleyApp::~ValleyApp()
 {
     destroyScene();
     delete OgreFramework::getSingletonPtr();
 }
 
-void DemoApp::destroyScene(void)
+void ValleyApp::destroyScene(void)
 {
     OgreFramework::getSingletonPtr()->m_pLog->logMessage("Scene cleaned up!");
     OGRE_DELETE mTerrainGroup;
@@ -40,7 +40,7 @@ void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
  
 }
 //-------------------------------------------------------------------------------------
-void DemoApp::defineTerrain(long x, long y)
+void ValleyApp::defineTerrain(long x, long y)
 {
     Ogre::String filename = mTerrainGroup->generateFilename(x, y);
     if (Ogre::ResourceGroupManager::getSingleton().resourceExists(mTerrainGroup->getResourceGroup(), filename))
@@ -56,7 +56,7 @@ void DemoApp::defineTerrain(long x, long y)
     }
 }
 //-------------------------------------------------------------------------------------
-void DemoApp::initBlendMaps(Ogre::Terrain* terrain)
+void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
 {
     Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
     Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
@@ -87,7 +87,7 @@ void DemoApp::initBlendMaps(Ogre::Terrain* terrain)
     blendMap1->update();
 }
 //-------------------------------------------------------------------------------------
-void DemoApp::configureTerrainDefaults(Ogre::Light* light)
+void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
 {
     // Configure global
     mTerrainGlobals->setMaxPixelError(8);
@@ -119,23 +119,23 @@ void DemoApp::configureTerrainDefaults(Ogre::Light* light)
     defaultimp.layerList[2].textureNames.push_back("dirt_grayrocky_normalheight.dds");
 }
 
-void DemoApp::startDemo()
+void ValleyApp::startGame()
 {
     new OgreFramework();
-    if(!OgreFramework::getSingletonPtr()->initOgre("DemoApp v1.0", this, 0))
+    if(!OgreFramework::getSingletonPtr()->initOgre("ValleyApp v1.0", this, 0))
         return;
 
     m_bShutdown = false;
 
-    OgreFramework::getSingletonPtr()->m_pLog->logMessage("Demo initialized!");
+    OgreFramework::getSingletonPtr()->m_pLog->logMessage("Game initialized!");
 
-    setupDemoScene();
-    runDemo();
+    setupGameScene();
+    runGame();
 }
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-void DemoApp::setupDemoScene()
+void ValleyApp::setupGameScene()
 {
     OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 12250, 2116));
     OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(1963, 50, 1660));
@@ -152,7 +152,8 @@ void DemoApp::setupDemoScene()
 //  Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(Ogre::TFO_ANISOTROPIC);
 //  Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(7);
 
-    Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
+    //Ogre::Vector3 lightdir(0.55, -0.3, 0.75);
+    Ogre::Vector3 lightdir(0.2, -1.0, 0.2);
     lightdir.normalise();
 
     Ogre::Light* light = OgreFramework::getSingletonPtr()->m_pSceneMgr->createLight("tstLight");
@@ -208,7 +209,7 @@ void DemoApp::setupDemoScene()
 //     m_pOgreHeadNode->attachObject(m_pOgreHeadEntity);
 }
 
-void DemoApp::runDemo()
+void ValleyApp::runGame()
 {
     OgreFramework::getSingletonPtr()->m_pLog->logMessage("Start main loop...");
 
@@ -251,7 +252,7 @@ void DemoApp::runDemo()
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-bool DemoApp::keyPressed(const OIS::KeyEvent &keyEventRef)
+bool ValleyApp::keyPressed(const OIS::KeyEvent &keyEventRef)
 {
     OgreFramework::getSingletonPtr()->keyPressed(keyEventRef);
 
@@ -265,7 +266,7 @@ bool DemoApp::keyPressed(const OIS::KeyEvent &keyEventRef)
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-bool DemoApp::keyReleased(const OIS::KeyEvent &keyEventRef)
+bool ValleyApp::keyReleased(const OIS::KeyEvent &keyEventRef)
 {
     OgreFramework::getSingletonPtr()->keyReleased(keyEventRef);
 

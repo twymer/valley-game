@@ -1,7 +1,7 @@
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-#ifndef OGRE_DEMO_HPP
-#define OGRE_DEMO_HPP
+#ifndef OGRE_VALLEY_HPP
+#define OGRE_VALLEY_HPP
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -11,20 +11,20 @@
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
-class DemoApp : public OIS::KeyListener
+class ValleyApp : public OIS::KeyListener
 {
     public:
-        DemoApp();
-        ~DemoApp();
+        ValleyApp();
+        ~ValleyApp();
 
-        void startDemo();
+        void startGame();
 
         bool keyPressed(const OIS::KeyEvent &keyEventRef);
         bool keyReleased(const OIS::KeyEvent &keyEventRef);
 
     private:
-        void setupDemoScene();
-        void runDemo();
+        void setupGameScene();
+        void runGame();
         void defineTerrain(long int, long int);
         void initBlendMaps(Ogre::Terrain*);
         void configureTerrainDefaults(Ogre::Light*);
