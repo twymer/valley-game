@@ -18,20 +18,18 @@ DemoApp::DemoApp()
 
 DemoApp::~DemoApp()
 {
-    destroyScene();
     delete OgreFramework::getSingletonPtr();
 }
 
 void DemoApp::destroyScene(void)
 {
-    OgreFramework::getSingletonPtr()->m_pLog->logMessage("Scene cleaned up!");
     OGRE_DELETE mTerrainGroup;
     OGRE_DELETE mTerrainGlobals;
 }
 //-------------------------------------------------------------------------------------
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
-    img.load("heightmap.bmp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    img.load("terrain.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     if (flipX)
         img.flipAroundY();
     if (flipY)
@@ -102,7 +100,7 @@ void DemoApp::configureTerrainDefaults(Ogre::Light* light)
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
     defaultimp.worldSize = 12000.0f;
-    defaultimp.inputScale = 6000;
+    defaultimp.inputScale = 600;
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
     // textures
@@ -111,11 +109,11 @@ void DemoApp::configureTerrainDefaults(Ogre::Light* light)
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
     defaultimp.layerList[1].worldSize = 30;
-    defaultimp.layerList[1].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
-    defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
+    defaultimp.layerList[1].textureNames.push_back("grass_green-01_diffusespecular.dds");
+    defaultimp.layerList[1].textureNames.push_back("grass_green-01_normalheight.dds");
     defaultimp.layerList[2].worldSize = 200;
-    defaultimp.layerList[2].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
-    defaultimp.layerList[2].textureNames.push_back("dirt_grayrocky_normalheight.dds");
+    defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_diffusespecular.dds");
+    defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_normalheight.dds");
 }
 
 void DemoApp::startDemo()
@@ -136,7 +134,7 @@ void DemoApp::startDemo()
 
 void DemoApp::setupDemoScene()
 {
-    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 12250, 2116));
+    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 50, 2116));
     OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(1963, 50, 1660));
     OgreFramework::getSingletonPtr()->m_pCamera->setNearClipDistance(0.1);
     OgreFramework::getSingletonPtr()->m_pCamera->setFarClipDistance(50000);
@@ -177,6 +175,7 @@ void DemoApp::setupDemoScene()
     // sync load since we want everything in place when we start
     mTerrainGroup->loadAllTerrains(true);
     
+    OgreFramework::getSingletonPtr()->m_pLog->logMessage("LOADED TERRAINS");
     if (mTerrainsImported)
     {
         Ogre::TerrainGroup::TerrainIterator ti = mTerrainGroup->getTerrainIterator();

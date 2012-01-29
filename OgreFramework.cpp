@@ -14,23 +14,23 @@ template<> OgreFramework* Ogre::Singleton<OgreFramework>::ms_Singleton = 0;
 
 OgreFramework::OgreFramework()
 {
-    m_MoveSpeed			= 0.1f;
-    m_RotateSpeed		= 0.3f;
+    m_MoveSpeed = 50.0f;
+    m_RotateSpeed = 0.3f;
 
-    m_bShutDownOgre		= false;
-    m_iNumScreenShots	= 0;
+    m_bShutDownOgre = false;
+    m_iNumScreenShots = 0;
 
-    m_pRoot				= 0;
-    m_pSceneMgr			= 0;
-    m_pRenderWnd		= 0;
-    m_pCamera			= 0;
-    m_pViewport			= 0;
-    m_pLog				= 0;
-    m_pTimer			= 0;
+    m_pRoot = 0;
+    m_pSceneMgr = 0;
+    m_pRenderWnd = 0;
+    m_pCamera = 0;
+    m_pViewport = 0;
+    m_pLog = 0;
+    m_pTimer = 0;
 
-    m_pInputMgr			= 0;
-    m_pKeyboard			= 0;
-    m_pMouse			= 0;
+    m_pInputMgr = 0;
+    m_pKeyboard = 0;
+    m_pMouse = 0;
 
     m_pTrayMgr          = 0;
     m_FrameEvent        = Ogre::FrameEvent();

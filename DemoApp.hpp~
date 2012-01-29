@@ -28,7 +28,6 @@ class DemoApp : public OIS::KeyListener
 	void defineTerrain(long int, long int);
 	void initBlendMaps(Ogre::Terrain*);
 	void configureTerrainDefaults(Ogre::Light*);
-	void destroyScene(void);
 	
 	Ogre::TerrainGlobalOptions* mTerrainGlobals;
 	Ogre::TerrainGroup* mTerrainGroup;
