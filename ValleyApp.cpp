@@ -92,7 +92,7 @@ void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
     // Configure global
     mTerrainGlobals->setMaxPixelError(8);
     // testing composite map
-    mTerrainGlobals->setCompositeMapDistance(3000);
+    mTerrainGlobals->setCompositeMapDistance(30000);
  
     // Important to set these so that the terrain knows what to use for derived (non-realtime) data
     mTerrainGlobals->setLightMapDirection(light->getDerivedDirection());
@@ -102,8 +102,8 @@ void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
     // Configure default import settings for if we use imported image
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
-    defaultimp.worldSize = 513.0f;
-    defaultimp.inputScale = 200;
+    defaultimp.worldSize = 12000.0f;
+    defaultimp.inputScale = 600*6;
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
     // textures
@@ -137,8 +137,8 @@ void ValleyApp::startGame()
 
 void ValleyApp::setupGameScene()
 {
-    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 12250, 2116));
-    OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(1963, 50, 1660));
+    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 1000, 2116));
+    OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(0, 0, 0));
     OgreFramework::getSingletonPtr()->m_pCamera->setNearClipDistance(0.1);
     OgreFramework::getSingletonPtr()->m_pCamera->setFarClipDistance(50000);
  
@@ -166,7 +166,7 @@ void ValleyApp::setupGameScene()
 
     mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 513.0f);
+    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("ValleyTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
 

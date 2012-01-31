@@ -108,6 +108,9 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, OIS::KeyListener *pKeyListen
         }
     }
     Ogre::TextureManager::getSingleton().setDefaultNumMipmaps(5);
+    //Enable these to increase visual performance for glancing-angle polys
+    //Ogre::MaterialManager::getSingleton().setDefaultTextureFiltering(TFO_TRILINEAR);
+    //Ogre::MaterialManager::getSingleton().setDefaultAnisotropy(1);
     Ogre::ResourceGroupManager::getSingleton().initialiseAllResourceGroups();
 
     m_pTimer = new Ogre::Timer();
@@ -144,7 +147,7 @@ bool OgreFramework::keyPressed(const OIS::KeyEvent &keyEventRef)
 
     if(m_pKeyboard->isKeyDown(OIS::KC_SYSRQ))
     {
-        m_pRenderWnd->writeContentsToTimestampedFile("BOF_Screenshot_", ".jpg");
+        m_pRenderWnd->writeContentsToTimestampedFile("screenshot_", ".jpg");
         return true;
     }
 
