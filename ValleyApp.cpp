@@ -32,7 +32,7 @@ void ValleyApp::destroyScene(void)
 //-------------------------------------------------------------------------------------
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
-    img.load("heightmap.bmp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    img.load("2peaks.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     if (flipX)
         img.flipAroundY();
     if (flipY)
@@ -102,7 +102,7 @@ void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
     // Configure default import settings for if we use imported image
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
-    defaultimp.worldSize = 2.0f * 513.0f;
+    defaultimp.worldSize = 513.0f;
     defaultimp.inputScale = 200;
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
@@ -166,7 +166,7 @@ void ValleyApp::setupGameScene()
 
     mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 2.0f * 513.0f);
+    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 513.0f);
     mTerrainGroup->setFilenameConvention(Ogre::String("ValleyTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
 
