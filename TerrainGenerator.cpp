@@ -11,18 +11,6 @@
 #define W_HEIGHT 480
 #define REDUCE_RANGE_CONSTANT .5
 
-
-TerrainGenerator::TerrainGenerator() {
-}
-TerrainGenerator::~TerrainGenerator() {
-}
-
-Ogre::Vector2** getLine() {
-    Ogre::Vector2** line = new Ogre::Vector2 *[DEPTH * DEPTH];
-    return line;
-}
-
-
 typedef struct _vec2 {
     float x;
     float y;
@@ -50,6 +38,13 @@ vec2 operator*(const float &f, const vec2 &v) {
 }
 
 vec2* points;
+
+TerrainGenerator::TerrainGenerator() {
+}
+TerrainGenerator::~TerrainGenerator() {
+    // Clean up
+    free(points);
+}
 
 float random_by_depth(int depth) {
     float reduce_by = pow(REDUCE_RANGE_CONSTANT, depth + 1);
@@ -127,6 +122,17 @@ float distance_to_line(vec2 v, vec2 w, vec2 p) {
     return distance(p, projection);
 }
 
+Ogre::Vector2* TerrainGenerator::getLine() {
+    Ogre::Vector2* line = new Ogre::Vector2 [DEPTH * DEPTH];
+
+    for(int i=0; i < DEPTH * DEPTH; i++) {
+        OgreFramework::getSingletonPtr()->m_pLog->logMessage("LOOP");
+        line[i].x = points[i].x;
+        line[i].y = points[i].y;
+    }
+    OgreFramework::getSingletonPtr()->m_pLog->logMessage("OUT?");
+    return line;
+}
 
 void TerrainGenerator::createTerrain(Ogre::String filename) {
     // Initialize noise objects
@@ -195,7 +201,4 @@ void TerrainGenerator::createTerrain(Ogre::String filename) {
     writer.SetSourceImage(image);
     writer.SetDestFilename("../media/materials/textures/" + filename);
     writer.WriteDestFile();
-
-    // Clean up
-    free(points);
 }

@@ -7,8 +7,6 @@
 #include <OgreStringConverter.h>
 #include <OgreManualObject.h>
 
-#include "TerrainGenerator.h"
-
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
 ValleyApp::ValleyApp()
@@ -196,33 +194,23 @@ void ValleyApp::setupGameScene()
     mTerrainGroup->freeTemporaryResources();
 
     Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
-    manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_FAN);
+    manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
 
-    manual->position(-200, -200, 0);
-    manual->position( 200, -200, 0);
-    manual->position( 200,  200, 0);
-    manual->position(-200,  200, 0);
+    //Ogre::Vector2* line = mGenerator.getLine();
+    ////TODO: can't hardcode 6
+    //for(int i = 0; i < 6 * 6; i++) {
+        //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
+                //Ogre::StringConverter::toString(line[i].x) +
+                //Ogre::StringConverter::toString(line[i].y));
+        //manual->position(line[i].x, 0, line[i].y);
+    //}
 
-    manual->end();
+    //manual->end();
 
-    OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(manual);
- 
-//     Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
-//     //OgreFramework::getSingletonPtr()->m_pSceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 10, 1200);
-//     OgreFramework::getSingletonPtr()->m_pViewport->setBackgroundColour(fadeColour);
-//  
-//     Ogre::Plane plane;
-//     plane.d = 100;
-//     plane.normal = Ogre::Vector3::NEGATIVE_UNIT_Y;
- 
-    //mSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8, 500);
-    //OgreFramework::getSingletonPtr()->m_pSceneMgr->setSkyPlane(true, plane, "Examples/CloudySky", 500, 20, true, 0.5, 150, 150);
-//     OgreFramework::getSingletonPtr()->m_pSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox");
-// 
-// 
-//     m_pOgreHeadEntity = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("OgreHeadEntity", "ogrehead.mesh");
-//     m_pOgreHeadNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode("OgreHeadNode");
-//     m_pOgreHeadNode->attachObject(m_pOgreHeadEntity);
+    //Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+    //sn->setScale(12000/512,0,12000/512);
+    //sn->attachObject(manual);
+
 }
 
 void ValleyApp::runGame()

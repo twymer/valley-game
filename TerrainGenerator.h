@@ -9,7 +9,6 @@ class TerrainGenerator {
         ~TerrainGenerator();
 
         void createTerrain(Ogre::String);
-        Ogre::Vector2** getLine();
-
+        Ogre::Vector2* getLine();
 };
 #endif
