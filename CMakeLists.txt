@@ -64,6 +64,23 @@ if (OGRE_Terrain_FOUND)
 else (OGRE_Terrain_FOUND)
   message(SEND_ERROR "OgreTerrain Library not found.")
 endif(OGRE_Terrain_FOUND)
+
+find_library(NOISE_LIBRARY
+   NAMES libnoise.so
+   PATHS /usr/lib /usr/local/lib
+)
+
+find_path(NOISE_INCLUDE_DIR
+  NAMES libnoise/noise.h noise/noise.h
+  PATHS /usr/include /usr/local/include
+
+)
+
+if (NOT NOISE_LIBRARY OR NOT NOISE_INCLUDE_DIR)
+   set(errors "${errors}\t\t- libNoise library\n")
+   set(dependency_error True)
+
+endif()
  
 find_package(OIS REQUIRED)
  
@@ -103,12 +120,16 @@ if (NOT OGRE_BUILD_PLATFORM_IPHONE)
 endif()
  
 set(HDRS
+  ./noiseutils.h
   ./OgreFramework.hpp
+  ./TerrainGenerator.h
   ./ValleyApp.hpp
 )
  
 set(SRCS
+  ./noiseutils.cpp
   ./OgreFramework.cpp
+  ./TerrainGenerator.cpp
   ./ValleyApp.cpp
   ./main.cpp
 )
@@ -116,13 +137,14 @@ set(SRCS
 include_directories( ${OIS_INCLUDE_DIRS}
 	${OGRE_INCLUDE_DIRS}
 	${OGRE_SAMPLES_INCLUDEPATH}
+        ${NOISE_INCLUDE_DIR}
 )
  
 add_executable(OgreApp WIN32 ${HDRS} ${SRCS})
  
 set_target_properties(OgreApp PROPERTIES DEBUG_POSTFIX _d)
  
-target_link_libraries(OgreApp ${OGRE_LIBRARIES} ${OIS_LIBRARIES})
+target_link_libraries(OgreApp ${OGRE_LIBRARIES} ${OIS_LIBRARIES} ${NOISE_LIBRARY})
  
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/bin)
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/dist/media)

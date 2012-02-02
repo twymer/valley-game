@@ -7,6 +7,8 @@
 #include <OgreStringConverter.h>
 #include <OgreManualObject.h>
 
+#include "TerrainGenerator.h"
+
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
 ValleyApp::ValleyApp()
@@ -14,6 +16,8 @@ ValleyApp::ValleyApp()
     m_pOgreHeadNode = 0;
     m_pOgreHeadEntity = 0;
     mTerrainsImported = false;
+
+    mGenerator.createTerrain("heightmap2.bmp");
 }
 
 ValleyApp::~ValleyApp()
@@ -31,12 +35,11 @@ void ValleyApp::destroyScene(void)
 
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
-    img.load("heightmap.bmp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    img.load("heightmap2.bmp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     if (flipX)
         img.flipAroundY();
     if (flipY)
         img.flipAroundX();
- 
 }
 
 void ValleyApp::defineTerrain(long x, long y)

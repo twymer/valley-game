@@ -9,6 +9,8 @@
 #include <Terrain/OgreTerrain.h>
 #include <Terrain/OgreTerrainGroup.h>
 
+#include "TerrainGenerator.h"
+
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
 class ValleyApp : public OIS::KeyListener
@@ -33,6 +35,8 @@ class ValleyApp : public OIS::KeyListener
         Ogre::TerrainGlobalOptions* mTerrainGlobals;
         Ogre::TerrainGroup* mTerrainGroup;
         bool mTerrainsImported;
+
+        TerrainGenerator mGenerator;
 
         Ogre::SceneNode* m_pOgreHeadNode;
         Ogre::Entity* m_pOgreHeadEntity;

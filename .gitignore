@@ -4,6 +4,7 @@ install_manifest.txt
 dist/bin/OgreApp
 dist/bin/OgreLogfile.log
 dist/bin/ogre.cfg
+dist/media/materials/textures/heightmap2.bmp
 Makefile
 cmake_install.cmake
 OgreLogFile.log
