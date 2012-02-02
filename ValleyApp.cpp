@@ -5,6 +5,7 @@
 #include <OgreLight.h>
 #include <OgreWindowEventUtilities.h>
 #include <OgreStringConverter.h>
+#include <OgreManualObject.h>
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
 
@@ -30,7 +31,7 @@ void ValleyApp::destroyScene(void)
 
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
-    img.load("2peaks.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
+    img.load("heightmap.bmp", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
     if (flipX)
         img.flipAroundY();
     if (flipY)
@@ -94,6 +95,7 @@ void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
     Ogre::Real fadeDist0 = 40;
     Ogre::Real minHeight1 = 70;
     Ogre::Real fadeDist1 = 15;
+    float* pBlend0 = blendMap0->getBlendPointer();
     float* pBlend1 = blendMap1->getBlendPointer();
     for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
     {
@@ -105,7 +107,7 @@ void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
             Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
             Ogre::Real val = (height - minHeight0) / fadeDist0;
             val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
-            *plend0++ = val;
+            *pBlend0++ = val;
  
             val = (height - minHeight1) / fadeDist1;
             val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
@@ -189,6 +191,18 @@ void ValleyApp::setupGameScene()
     }
 
     mTerrainGroup->freeTemporaryResources();
+
+    Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
+    manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_TRIANGLE_FAN);
+
+    manual->position(-200, -200, 0);
+    manual->position( 200, -200, 0);
+    manual->position( 200,  200, 0);
+    manual->position(-200,  200, 0);
+
+    manual->end();
+
+    OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(manual);
  
 //     Ogre::ColourValue fadeColour(0.9, 0.9, 0.9);
 //     //OgreFramework::getSingletonPtr()->m_pSceneMgr->setFog(Ogre::FOG_LINEAR, fadeColour, 0.0, 10, 1200);
