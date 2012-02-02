@@ -15,8 +15,6 @@ ValleyApp::ValleyApp()
     mTerrainsImported = false;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
-
 ValleyApp::~ValleyApp()
 {
     destroyScene();
@@ -29,7 +27,7 @@ void ValleyApp::destroyScene(void)
     OGRE_DELETE mTerrainGroup;
     OGRE_DELETE mTerrainGlobals;
 }
-//-------------------------------------------------------------------------------------
+
 void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
 {
     img.load("2peaks.png", Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME);
@@ -39,7 +37,7 @@ void getTerrainImage(bool flipX, bool flipY, Ogre::Image& img)
         img.flipAroundX();
  
 }
-//-------------------------------------------------------------------------------------
+
 void ValleyApp::defineTerrain(long x, long y)
 {
     Ogre::String filename = mTerrainGroup->generateFilename(x, y);
@@ -55,38 +53,7 @@ void ValleyApp::defineTerrain(long x, long y)
         mTerrainsImported = true;
     }
 }
-//-------------------------------------------------------------------------------------
-void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
-{
-    Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
-    Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
-    Ogre::Real minHeight0 = 70;
-    Ogre::Real fadeDist0 = 40;
-    Ogre::Real minHeight1 = 70;
-    Ogre::Real fadeDist1 = 15;
-    float* pBlend1 = blendMap1->getBlendPointer();
-    for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
-    {
-        for (Ogre::uint16 x = 0; x < terrain->getLayerBlendMapSize(); ++x)
-        {
-            Ogre::Real tx, ty;
- 
-            blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
-            Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
-            Ogre::Real val = (height - minHeight0) / fadeDist0;
-            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
- 
-            val = (height - minHeight1) / fadeDist1;
-            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
-            *pBlend1++ = val;
-        }
-    }
-    blendMap0->dirty();
-    blendMap1->dirty();
-    blendMap0->update();
-    blendMap1->update();
-}
-//-------------------------------------------------------------------------------------
+
 void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
 {
     // Configure global
@@ -112,11 +79,43 @@ void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
     defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
     defaultimp.layerList[1].worldSize = 30;
-    defaultimp.layerList[1].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
-    defaultimp.layerList[0].textureNames.push_back("dirt_grayrocky_normalheight.dds");
+    defaultimp.layerList[1].textureNames.push_back("grass_green-01_diffusespecular.dds");
+    defaultimp.layerList[1].textureNames.push_back("grass_green-01_normalheight.dds");
     defaultimp.layerList[2].worldSize = 200;
-    defaultimp.layerList[2].textureNames.push_back("dirt_grayrocky_diffusespecular.dds");
-    defaultimp.layerList[2].textureNames.push_back("dirt_grayrocky_normalheight.dds");
+    defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_diffusespecular.dds");
+    defaultimp.layerList[2].textureNames.push_back("growth_weirdfungus-03_normalheight.dds");
+}
+
+void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
+{
+    Ogre::TerrainLayerBlendMap* blendMap0 = terrain->getLayerBlendMap(1);
+    Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
+    Ogre::Real minHeight0 = 70;
+    Ogre::Real fadeDist0 = 40;
+    Ogre::Real minHeight1 = 70;
+    Ogre::Real fadeDist1 = 15;
+    float* pBlend1 = blendMap1->getBlendPointer();
+    for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
+    {
+        for (Ogre::uint16 x = 0; x < terrain->getLayerBlendMapSize(); ++x)
+        {
+            Ogre::Real tx, ty;
+ 
+            blendMap0->convertImageToTerrainSpace(x, y, &tx, &ty);
+            Ogre::Real height = terrain->getHeightAtTerrainPosition(tx, ty);
+            Ogre::Real val = (height - minHeight0) / fadeDist0;
+            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+            *plend0++ = val;
+ 
+            val = (height - minHeight1) / fadeDist1;
+            val = Ogre::Math::Clamp(val, (Ogre::Real)0, (Ogre::Real)1);
+            *pBlend1++ = val;
+        }
+    }
+    blendMap0->dirty();
+    blendMap1->dirty();
+    blendMap0->update();
+    blendMap1->update();
 }
 
 void ValleyApp::startGame()
