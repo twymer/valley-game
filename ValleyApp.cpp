@@ -220,6 +220,7 @@ void ValleyApp::setupGameScene()
     Ogre::Entity* entWater = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("WaterEntity", "water");
     OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
     entWater->setCastShadows(false);
+    entWater->setMaterialName("Examples/WaterStream");
 }
 
 void ValleyApp::runGame()
