@@ -208,9 +208,18 @@ void ValleyApp::setupGameScene()
     //manual->end();
 
     //Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-    //sn->setScale(12000/512,0,12000/512);
+    //sn->setScale(12000/512,1,12000/512);
     //sn->attachObject(manual);
 
+
+    //Cheap water..
+    Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 1000);
+    Ogre::MeshManager::getSingleton().createPlane("water",
+            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+            plane, 12000, 12000, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
+    Ogre::Entity* entWater = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("WaterEntity", "water");
+    OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
+    entWater->setCastShadows(false);
 }
 
 void ValleyApp::runGame()
