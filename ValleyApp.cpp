@@ -223,6 +223,14 @@ void ValleyApp::setupGameScene()
     entWater->setCastShadows(false);
     entWater->setMaterialName("Examples/WaterStream");
 
+
+    //Test trees
+    Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("Tree", "oakA.mesh");
+    Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+    treeNode->setScale(10,10,10);
+    treeNode->translate(0,1500,0);
+    treeNode->attachObject(entTree);
+    entTree->setMaterialName("oak");
 }
 
 void ValleyApp::runGame()
