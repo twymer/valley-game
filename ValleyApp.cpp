@@ -139,7 +139,7 @@ void ValleyApp::startGame()
 
 void ValleyApp::setupGameScene()
 {
-    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 1000, 2116));
+    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 10000, 2116));
     OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(0, 0, 0));
     OgreFramework::getSingletonPtr()->m_pCamera->setNearClipDistance(0.1);
     OgreFramework::getSingletonPtr()->m_pCamera->setFarClipDistance(50000);
@@ -196,20 +196,21 @@ void ValleyApp::setupGameScene()
     Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
     manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
 
-    //Ogre::Vector2* line = mGenerator.getLine();
-    ////TODO: can't hardcode 6
-    //for(int i = 0; i < 6 * 6; i++) {
-        //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
-                //Ogre::StringConverter::toString(line[i].x) +
-                //Ogre::StringConverter::toString(line[i].y));
-        //manual->position(line[i].x, 0, line[i].y);
-    //}
+    Ogre::Vector2* line = mGenerator.getLine();
+    //TODO: can't hardcode 6
+    for(int i = 0; i < 6 * 6; i++) {
+      //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
+              //Ogre::StringConverter::toString(line[i].x) +
+              //Ogre::StringConverter::toString(line[i].y));
+      manual->position(line[i].x, 1500, -line[i].y);
+    }
 
-    //manual->end();
+    manual->end();
 
-    //Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-    //sn->setScale(12000/512,1,12000/512);
-    //sn->attachObject(manual);
+    Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+    sn->setScale(12000/512,1,12000/512);
+    sn->translate(-12000/2,0, 12000/2);
+    sn->attachObject(manual);
 
 
     //Cheap water..
@@ -221,6 +222,7 @@ void ValleyApp::setupGameScene()
     OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
     entWater->setCastShadows(false);
     entWater->setMaterialName("Examples/WaterStream");
+
 }
 
 void ValleyApp::runGame()
