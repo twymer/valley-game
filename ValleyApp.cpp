@@ -15,6 +15,8 @@ ValleyApp::ValleyApp()
     m_pOgreHeadEntity = 0;
     mTerrainsImported = false;
 
+    worldSize = 12000;
+
     mGenerator.createTerrain("heightmap2.bmp");
 }
 
@@ -71,7 +73,7 @@ void ValleyApp::configureTerrainDefaults(Ogre::Light* light)
     // Configure default import settings for if we use imported image
     Ogre::Terrain::ImportData& defaultimp = mTerrainGroup->getDefaultImportSettings();
     defaultimp.terrainSize = 513;
-    defaultimp.worldSize = 12000.0f;
+    defaultimp.worldSize = worldSize;
     defaultimp.inputScale = 600*6;
     defaultimp.minBatchSize = 33;
     defaultimp.maxBatchSize = 65;
@@ -168,7 +170,7 @@ void ValleyApp::setupGameScene()
 
     mTerrainGlobals = OGRE_NEW Ogre::TerrainGlobalOptions();
 
-    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, 12000.0f);
+    mTerrainGroup = OGRE_NEW Ogre::TerrainGroup(OgreFramework::getSingletonPtr()->m_pSceneMgr, Ogre::Terrain::ALIGN_X_Z, 513, worldSize);
     mTerrainGroup->setFilenameConvention(Ogre::String("ValleyTerrain"), Ogre::String("dat"));
     mTerrainGroup->setOrigin(Ogre::Vector3::ZERO);
 
@@ -208,8 +210,8 @@ void ValleyApp::setupGameScene()
     manual->end();
 
     Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-    sn->setScale(12000/512,1,12000/512);
-    sn->translate(-12000/2,0, 12000/2);
+    sn->setScale(worldSize/512,1,worldSize/512);
+    sn->translate(-worldSize/2,0, worldSize/2);
     sn->attachObject(manual);
 
 
@@ -217,20 +219,26 @@ void ValleyApp::setupGameScene()
     Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 1000);
     Ogre::MeshManager::getSingleton().createPlane("water",
             Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-            plane, 12000, 12000, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
+            plane, worldSize, worldSize, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
     Ogre::Entity* entWater = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("WaterEntity", "water");
     OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
     entWater->setCastShadows(false);
     entWater->setMaterialName("Examples/WaterStream");
 
 
-    //Test trees
-    Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("Tree", "oakA.mesh");
-    Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-    treeNode->setScale(10,10,10);
-    treeNode->translate(0,1500,0);
-    treeNode->attachObject(entTree);
-    entTree->setMaterialName("oak");
+    for(int i=0; i < 15; i++) {
+        Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
+        Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+        rockNode->setScale(10,10,10);
+        rockNode->translate(i * 100, 8500, i * 100);
+        rockNode->attachObject(entRock);
+    }
+
+        //Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("Tree", "oakA.mesh");
+        //Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+        //treeNode->setScale(10,10,10);
+        //treeNode->translate(0,1500,0);
+        //treeNode->attachObject(entTree);
 }
 
 void ValleyApp::runGame()

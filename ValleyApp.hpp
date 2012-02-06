@@ -42,6 +42,8 @@ class ValleyApp : public OIS::KeyListener
         Ogre::Entity* m_pOgreHeadEntity;
 
         bool m_bShutdown;
+
+        int worldSize;
 };
 
 //|||||||||||||||||||||||||||||||||||||||||||||||
