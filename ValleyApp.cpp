@@ -225,7 +225,7 @@ void ValleyApp::setupGameScene()
     entWater->setCastShadows(false);
     entWater->setMaterialName("Examples/WaterStream");
 
-
+    // Drop rocks along path
     for(int i=0; i < 6*6; i++) {
         Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
         Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -247,11 +247,19 @@ void ValleyApp::setupGameScene()
         rockNode->attachObject(entRock);
     }
 
-        //Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("Tree", "oakA.mesh");
-        //Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-        //treeNode->setScale(10,10,10);
-        //treeNode->translate(0,1500,0);
-        //treeNode->attachObject(entTree);
+    // Drop trees randomly
+    for(int i=0; i < 20; i++) {
+        float xPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
+        float zPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
+        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+        float scale = Ogre::Math::RangeRandom(8,20);
+
+        Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("oakA.mesh");
+        Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+        treeNode->setScale(scale, scale, scale);
+        treeNode->translate(xPos, yPos, zPos);
+        treeNode->attachObject(entTree);
+    }
 }
 
 void ValleyApp::runGame()
