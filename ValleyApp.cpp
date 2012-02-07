@@ -137,10 +137,100 @@ void ValleyApp::startGame()
     runGame();
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
+void ValleyApp::drawWater() {
+    Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 1000);
+    Ogre::MeshManager::getSingleton().createPlane("water",
+            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
+            plane, worldSize, worldSize, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
+    Ogre::Entity* entWater = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("WaterEntity", "water");
+    OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
+    entWater->setCastShadows(false);
+    entWater->setMaterialName("Examples/WaterStream");
+}
+
+void ValleyApp::drawRocks() {
+    for(int i=0; i < 6*6; i++) {
+        Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
+        Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+        float scale = Ogre::Math::RangeRandom(10,40);
+        rockNode->setScale(scale, scale, scale);
+
+        Ogre::Quaternion orientation;
+        orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(0,359)), Ogre::Vector3::UNIT_SCALE);
+        rockNode->rotate(orientation);
+
+        float xPos = -worldSize/2 + line[i].x/512 * worldSize;
+        float zPos = worldSize/2 - line[i].y/512 * worldSize;
+        xPos += 25 * Ogre::Math::RangeRandom(-25, 25);
+        zPos += 25 * Ogre::Math::RangeRandom(-25, 25);
+        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+        rockNode->translate(xPos, yPos+10, zPos);
+
+        rockNode->attachObject(entRock);
+    }
+}
+
+void ValleyApp::drawTrees() {
+    for(int i=0; i < 20; i++) {
+        float xPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
+        float zPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
+        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+        float scale = Ogre::Math::RangeRandom(8,20);
+
+        Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("oakA.mesh");
+        Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+        treeNode->setScale(scale, scale, scale);
+        treeNode->translate(xPos, yPos, zPos);
+        treeNode->attachObject(entTree);
+    }
+}
+
+void ValleyApp::drawFallenTrees() {
+    Ogre::Entity* entFallen = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("tree_log.mesh");
+    Ogre::SceneNode* fallenNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+    Ogre::Quaternion orientation;
+    orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(70,90)), Ogre::Vector3::UNIT_SCALE);
+    fallenNode->rotate(orientation);
+
+    float scale = 350;
+    fallenNode->setScale(scale, scale, scale);
+
+    int segment = Ogre::Math::RangeRandom(0, 6*6);
+    float xPos = -worldSize/2 + line[segment].x/512 * worldSize;
+    float zPos = worldSize/2 - line[segment].y/512 * worldSize;
+    xPos += 25 * Ogre::Math::RangeRandom(-25, 0);
+    zPos += 25 * Ogre::Math::RangeRandom(-25, 0);
+    float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+    fallenNode->translate(xPos, yPos, zPos);
+
+    fallenNode->attachObject(entFallen);
+}
+
+void ValleyApp::drawPathLine() {
+    Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
+    manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
+
+    //TODO: can't hardcode 6
+    for(int i = 0; i < 6 * 6; i++) {
+      //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
+              //Ogre::StringConverter::toString(line[i].x) +
+              //Ogre::StringConverter::toString(line[i].y));
+      manual->position(line[i].x, 1500, -line[i].y);
+    }
+
+    manual->end();
+
+    Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+    sn->setScale(worldSize/512,1,worldSize/512);
+    sn->translate(-worldSize/2,0, worldSize/2);
+    sn->attachObject(manual);
+}
 
 void ValleyApp::setupGameScene()
 {
+    line = mGenerator.getLine();
     OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 10000, 2116));
     OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(0, 0, 0));
     OgreFramework::getSingletonPtr()->m_pCamera->setNearClipDistance(0.1);
@@ -195,95 +285,15 @@ void ValleyApp::setupGameScene()
 
     mTerrainGroup->freeTemporaryResources();
 
-    Ogre::Vector2* line = mGenerator.getLine();
-    /*
-    Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
-    manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
+    //drawPathLine();
 
-    //TODO: can't hardcode 6
-    for(int i = 0; i < 6 * 6; i++) {
-      //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
-              //Ogre::StringConverter::toString(line[i].x) +
-              //Ogre::StringConverter::toString(line[i].y));
-      manual->position(line[i].x, 1500, -line[i].y);
-    }
+    drawWater();
 
-    manual->end();
+    drawRocks();
 
-    Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-    sn->setScale(worldSize/512,1,worldSize/512);
-    sn->translate(-worldSize/2,0, worldSize/2);
-    sn->attachObject(manual);
-    */
+    drawTrees();
 
-    //Cheap water..
-    Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 1000);
-    Ogre::MeshManager::getSingleton().createPlane("water",
-            Ogre::ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME,
-            plane, worldSize, worldSize, 20, 20, true, 1, 5, 5, Ogre::Vector3::UNIT_Z);
-    Ogre::Entity* entWater = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("WaterEntity", "water");
-    OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(entWater);
-    entWater->setCastShadows(false);
-    entWater->setMaterialName("Examples/WaterStream");
-
-    // Drop rocks along path
-    for(int i=0; i < 6*6; i++) {
-        Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
-        Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-
-        float scale = Ogre::Math::RangeRandom(10,40);
-        rockNode->setScale(scale, scale, scale);
-
-        Ogre::Quaternion orientation;
-        orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(0,359)), Ogre::Vector3::UNIT_SCALE);
-        rockNode->rotate(orientation);
-
-        float xPos = -worldSize/2 + line[i].x/512 * worldSize;
-        float zPos = worldSize/2 - line[i].y/512 * worldSize;
-        xPos += 25 * Ogre::Math::RangeRandom(-25, 25);
-        zPos += 25 * Ogre::Math::RangeRandom(-25, 25);
-        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
-        rockNode->translate(xPos, yPos+10, zPos);
-
-        rockNode->attachObject(entRock);
-    }
-
-    // Drop trees randomly
-    /*
-    for(int i=0; i < 20; i++) {
-        float xPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
-        float zPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
-        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
-        float scale = Ogre::Math::RangeRandom(8,20);
-
-        Ogre::Entity* entTree = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("oakA.mesh");
-        Ogre::SceneNode* treeNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-        treeNode->setScale(scale, scale, scale);
-        treeNode->translate(xPos, yPos, zPos);
-        treeNode->attachObject(entTree);
-    }
-    */
-
-    // Fallen tree on path
-    Ogre::Entity* entFallen = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("tree_log.mesh");
-    Ogre::SceneNode* fallenNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
-
-    Ogre::Quaternion orientation;
-    orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(70,90)), Ogre::Vector3::UNIT_SCALE);
-    fallenNode->rotate(orientation);
-
-    float scale = 350;
-    fallenNode->setScale(scale, scale, scale);
-
-    int segment = Ogre::Math::RangeRandom(0, 6*6);
-    float xPos = -worldSize/2 + line[segment].x/512 * worldSize;
-    float zPos = worldSize/2 - line[segment].y/512 * worldSize;
-    xPos += 25 * Ogre::Math::RangeRandom(-25, 0);
-    zPos += 25 * Ogre::Math::RangeRandom(-25, 0);
-    float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
-    fallenNode->translate(xPos, yPos, zPos);
-
-    fallenNode->attachObject(entFallen);
+    drawFallenTrees();
 }
 
 void ValleyApp::runGame()

@@ -31,9 +31,15 @@ class ValleyApp : public OIS::KeyListener
         void initBlendMaps(Ogre::Terrain*);
         void configureTerrainDefaults(Ogre::Light*);
         void destroyScene(void);
+        void drawRocks();
+        void drawWater();
+        void drawTrees();
+        void drawFallenTrees();
+        void drawPathLine();
 
         Ogre::TerrainGlobalOptions* mTerrainGlobals;
         Ogre::TerrainGroup* mTerrainGroup;
+        Ogre::Vector2* line;
         bool mTerrainsImported;
 
         TerrainGenerator mGenerator;
