@@ -226,11 +226,18 @@ void ValleyApp::setupGameScene()
     entWater->setMaterialName("Examples/WaterStream");
 
 
-    for(int i=0; i < 15; i++) {
+    for(int i=0; i < 6*6; i++) {
         Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
         Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
         rockNode->setScale(10,10,10);
-        rockNode->translate(i * 100, 8500, i * 100);
+        OgreFramework::getSingletonPtr()->m_pLog->logMessage(Ogre::StringConverter::toString(line[i].x));
+        float xPos = -worldSize/2 + line[i].x/512 * worldSize;
+        float zPos = worldSize/2 - line[i].y/512 * worldSize;
+        xPos += 25 * Ogre::Math::RangeRandom(-25, 25);
+        zPos += 25 * Ogre::Math::RangeRandom(-25, 25);
+        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+
+        rockNode->translate(xPos, yPos+10, zPos);
         rockNode->attachObject(entRock);
     }
 
