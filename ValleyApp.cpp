@@ -195,10 +195,11 @@ void ValleyApp::setupGameScene()
 
     mTerrainGroup->freeTemporaryResources();
 
+    Ogre::Vector2* line = mGenerator.getLine();
+    /*
     Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
     manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
 
-    Ogre::Vector2* line = mGenerator.getLine();
     //TODO: can't hardcode 6
     for(int i = 0; i < 6 * 6; i++) {
       //OgreFramework::getSingletonPtr()->m_pLog->logMessage(
@@ -213,7 +214,7 @@ void ValleyApp::setupGameScene()
     sn->setScale(worldSize/512,1,worldSize/512);
     sn->translate(-worldSize/2,0, worldSize/2);
     sn->attachObject(manual);
-
+    */
 
     //Cheap water..
     Ogre::Plane plane(Ogre::Vector3::UNIT_Y, 1000);
@@ -248,6 +249,7 @@ void ValleyApp::setupGameScene()
     }
 
     // Drop trees randomly
+    /*
     for(int i=0; i < 20; i++) {
         float xPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
         float zPos = Ogre::Math::RangeRandom(-worldSize/2, worldSize/2);
@@ -260,6 +262,28 @@ void ValleyApp::setupGameScene()
         treeNode->translate(xPos, yPos, zPos);
         treeNode->attachObject(entTree);
     }
+    */
+
+    // Fallen tree on path
+    Ogre::Entity* entFallen = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("tree_log.mesh");
+    Ogre::SceneNode* fallenNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+    Ogre::Quaternion orientation;
+    orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(70,90)), Ogre::Vector3::UNIT_SCALE);
+    fallenNode->rotate(orientation);
+
+    float scale = 350;
+    fallenNode->setScale(scale, scale, scale);
+
+    int segment = Ogre::Math::RangeRandom(0, 6*6);
+    float xPos = -worldSize/2 + line[segment].x/512 * worldSize;
+    float zPos = worldSize/2 - line[segment].y/512 * worldSize;
+    xPos += 25 * Ogre::Math::RangeRandom(-25, 0);
+    zPos += 25 * Ogre::Math::RangeRandom(-25, 0);
+    float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+    fallenNode->translate(xPos, yPos, zPos);
+
+    fallenNode->attachObject(entFallen);
 }
 
 void ValleyApp::runGame()
