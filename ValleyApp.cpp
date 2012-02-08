@@ -372,7 +372,10 @@ void ValleyApp::runGame()
             OgreFramework::getSingletonPtr()->m_pMouse->capture();
 
             updatePathState();
-            OgreFramework::getSingletonPtr()->setLookAtPoint(pathPoints[nextPoint]);
+            OgreFramework::getSingletonPtr()->setNextPoint(pathPoints[nextPoint]);
+            Ogre::Vector3 lookAtPoint = pathPoints[nextPoint] + pathPoints[nextPoint+1] + pathPoints[nextPoint+2];
+            lookAtPoint /= 3;
+            OgreFramework::getSingletonPtr()->setLookAtPoint(lookAtPoint);
 
             OgreFramework::getSingletonPtr()->updateOgre(timeSinceLastFrame);
             OgreFramework::getSingletonPtr()->m_pRoot->renderOneFrame();

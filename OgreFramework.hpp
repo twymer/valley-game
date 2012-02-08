@@ -47,6 +47,7 @@ class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, O
         bool mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
 
         void setLookAtPoint(Ogre::Vector3);
+        void setNextPoint(Ogre::Vector3);
 
         Ogre::Root*					m_pRoot;
         Ogre::SceneManager*			m_pSceneMgr;
@@ -79,6 +80,7 @@ class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, O
         Ogre::Degree				m_RotScale;
 
         Ogre::Vector3 lookAt;
+        Ogre::Vector3 nextPoint;
 
 };
 

@@ -223,7 +223,7 @@ bool OgreFramework::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID
 void OgreFramework::updateOgre(double timeSinceLastFrame)
 {
     if(!spectatorMode) {
-        m_pCamera->lookAt(lookAt);
+        m_pCamera->lookAt(nextPoint);
     }
 
     m_MoveScale = m_MoveSpeed   * (float)timeSinceLastFrame;
@@ -233,6 +233,10 @@ void OgreFramework::updateOgre(double timeSinceLastFrame)
 
     getInput();
     moveCamera();
+
+    if(!spectatorMode) {
+        m_pCamera->lookAt(lookAt);
+    }
 
     m_FrameEvent.timeSinceLastFrame = timeSinceLastFrame;
     m_pTrayMgr->frameRenderingQueued(m_FrameEvent);
@@ -270,4 +274,9 @@ void OgreFramework::getInput()
 void OgreFramework::setLookAtPoint(Ogre::Vector3 vector)
 {
     lookAt = vector;
+}
+
+void OgreFramework::setNextPoint(Ogre::Vector3 vector)
+{
+    nextPoint = vector;
 }
