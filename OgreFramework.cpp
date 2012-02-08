@@ -1,20 +1,16 @@
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 #include "OgreFramework.hpp"
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 using namespace Ogre;
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 template<> OgreFramework* Ogre::Singleton<OgreFramework>::ms_Singleton = 0;
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 OgreFramework::OgreFramework()
 {
-    m_MoveSpeed = 40.0f;
+    m_MoveSpeed = 10.0f;
     m_RotateSpeed = 0.3f;
 
     m_bShutDownOgre = false;
@@ -34,9 +30,11 @@ OgreFramework::OgreFramework()
 
     m_pTrayMgr = 0;
     m_FrameEvent = Ogre::FrameEvent();
+
+    spectatorMode = true;
+
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::initOgre(Ogre::String wndTitle, OIS::KeyListener *pKeyListener, OIS::MouseListener *pMouseListener)
 {
@@ -126,7 +124,6 @@ bool OgreFramework::initOgre(Ogre::String wndTitle, OIS::KeyListener *pKeyListen
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 OgreFramework::~OgreFramework()
 {
@@ -135,7 +132,6 @@ OgreFramework::~OgreFramework()
     if(m_pRoot)     delete m_pRoot;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::keyPressed(const OIS::KeyEvent &keyEventRef)
 {
@@ -149,6 +145,11 @@ bool OgreFramework::keyPressed(const OIS::KeyEvent &keyEventRef)
     {
         m_pRenderWnd->writeContentsToTimestampedFile("screenshot_", ".jpg");
         return true;
+    }
+
+    if(m_pKeyboard->isKeyDown(OIS::KC_K))
+    {
+        spectatorMode = !spectatorMode;
     }
 
     if(m_pKeyboard->isKeyDown(OIS::KC_M))
@@ -189,41 +190,42 @@ bool OgreFramework::keyPressed(const OIS::KeyEvent &keyEventRef)
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::keyReleased(const OIS::KeyEvent &keyEventRef)
 {
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::mouseMoved(const OIS::MouseEvent &evt)
 {
-    m_pCamera->yaw(Degree(evt.state.X.rel * -0.1f));
-    m_pCamera->pitch(Degree(evt.state.Y.rel * -0.1f));
+    if(spectatorMode) {
+        m_pCamera->yaw(Degree(evt.state.X.rel * -0.1f));
+        m_pCamera->pitch(Degree(evt.state.Y.rel * -0.1f));
+    }
 
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id)
 {
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 bool OgreFramework::mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id)
 {
     return true;
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 void OgreFramework::updateOgre(double timeSinceLastFrame)
 {
+    if(!spectatorMode) {
+        m_pCamera->lookAt(lookAt);
+    }
+
     m_MoveScale = m_MoveSpeed   * (float)timeSinceLastFrame;
     m_RotScale  = m_RotateSpeed * (float)timeSinceLastFrame;
 
@@ -236,7 +238,6 @@ void OgreFramework::updateOgre(double timeSinceLastFrame)
     m_pTrayMgr->frameRenderingQueued(m_FrameEvent);
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 void OgreFramework::moveCamera()
 {
@@ -246,7 +247,6 @@ void OgreFramework::moveCamera()
         m_pCamera->moveRelative(m_TranslateVector / 10);
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
 
 void OgreFramework::getInput()
 {
@@ -267,4 +267,7 @@ void OgreFramework::getInput()
     }
 }
 
-//|||||||||||||||||||||||||||||||||||||||||||||||
+void OgreFramework::setLookAtPoint(Ogre::Vector3 vector)
+{
+    lookAt = vector;
+}

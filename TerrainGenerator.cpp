@@ -126,11 +126,9 @@ Ogre::Vector2* TerrainGenerator::getLine() {
     Ogre::Vector2* line = new Ogre::Vector2 [DEPTH * DEPTH];
 
     for(int i=0; i < DEPTH * DEPTH; i++) {
-        OgreFramework::getSingletonPtr()->m_pLog->logMessage("LOOP");
         line[i].x = points[i].x;
         line[i].y = points[i].y;
     }
-    OgreFramework::getSingletonPtr()->m_pLog->logMessage("OUT?");
     return line;
 }
 

@@ -46,6 +46,8 @@ class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, O
         bool mousePressed(const OIS::MouseEvent &evt, OIS::MouseButtonID id); 
         bool mouseReleased(const OIS::MouseEvent &evt, OIS::MouseButtonID id);
 
+        void setLookAtPoint(Ogre::Vector3);
+
         Ogre::Root*					m_pRoot;
         Ogre::SceneManager*			m_pSceneMgr;
         Ogre::RenderWindow*			m_pRenderWnd;
@@ -57,6 +59,8 @@ class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, O
         OIS::InputManager*			m_pInputMgr;
         OIS::Keyboard*				m_pKeyboard;
         OIS::Mouse*					m_pMouse;
+
+        bool spectatorMode;
 
     private:
         OgreFramework(const OgreFramework&);
@@ -73,6 +77,9 @@ class OgreFramework : public Ogre::Singleton<OgreFramework>, OIS::KeyListener, O
         Ogre::Degree				m_RotateSpeed; 
         float						m_MoveScale; 
         Ogre::Degree				m_RotScale;
+
+        Ogre::Vector3 lookAt;
+
 };
 
 //|||||||||||||||||||||||||||||||||||||||||||||||

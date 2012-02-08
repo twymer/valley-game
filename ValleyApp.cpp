@@ -16,6 +16,7 @@ ValleyApp::ValleyApp()
     mTerrainsImported = false;
 
     worldSize = 12000;
+    nextPoint = 0;
 
     mGenerator.createTerrain("heightmap2.bmp");
 }
@@ -210,6 +211,14 @@ void ValleyApp::drawTrees() {
     }
 }
 
+float ValleyApp::translateLinePointX(Ogre::Vector2 point) {
+    return -worldSize/2 + point.x/512 * worldSize;
+}
+
+float ValleyApp::translateLinePointY(Ogre::Vector2 point) {
+    return worldSize/2 - point.y/512 * worldSize;
+}
+
 void ValleyApp::drawFallenTrees() {
     Ogre::Entity* entFallen = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("tree_log.mesh");
     Ogre::SceneNode* fallenNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
@@ -222,8 +231,8 @@ void ValleyApp::drawFallenTrees() {
     fallenNode->setScale(scale, scale, scale);
 
     int segment = Ogre::Math::RangeRandom(0, 6*6);
-    float xPos = -worldSize/2 + line[segment].x/512 * worldSize;
-    float zPos = worldSize/2 - line[segment].y/512 * worldSize;
+    float xPos = translateLinePointX(line[segment]);
+    float zPos = translateLinePointY(line[segment]);
     xPos += 25 * Ogre::Math::RangeRandom(-25, 0);
     zPos += 25 * Ogre::Math::RangeRandom(-25, 0);
     float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
@@ -252,14 +261,29 @@ void ValleyApp::drawPathLine() {
     sn->attachObject(manual);
 }
 
+Ogre::Vector3* ValleyApp::setupPathPoints() {
+    Ogre::Vector3* points = new Ogre::Vector3 [6 * 6];
+    for(int i=0; i < 6 * 6; i++) {
+        points[i].x = translateLinePointX(line[i]);
+        points[i].y = 1100;
+        points[i].z = translateLinePointY(line[i]);
+    }
+    return points;
+}
+
 void ValleyApp::setupGameScene()
 {
     line = mGenerator.getLine();
-    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(Ogre::Vector3(1683, 10000, 2116));
-    OgreFramework::getSingletonPtr()->m_pCamera->lookAt(Ogre::Vector3(0, 0, 0));
+    pathPoints = setupPathPoints();
+    //drawPathLine();
+
+    drawWater();
+
+    OgreFramework::getSingletonPtr()->m_pCamera->setPosition(pathPoints[0]);
+    OgreFramework::getSingletonPtr()->m_pCamera->lookAt(pathPoints[1]);
     OgreFramework::getSingletonPtr()->m_pCamera->setNearClipDistance(0.1);
     OgreFramework::getSingletonPtr()->m_pCamera->setFarClipDistance(50000);
- 
+
     if (OgreFramework::getSingletonPtr()->m_pRoot->getRenderSystem()->getCapabilities()->hasCapability(Ogre::RSC_INFINITE_FAR_PLANE))
     {
         OgreFramework::getSingletonPtr()->m_pCamera->setFarClipDistance(0);   // enable infinite far clip distance if we can
@@ -309,16 +333,21 @@ void ValleyApp::setupGameScene()
 
     mTerrainGroup->freeTemporaryResources();
 
-    //drawPathLine();
-
-    drawWater();
-
     drawRocks();
 
     drawTrees();
 
     drawFallenTrees();
 }
+
+void ValleyApp::updatePathState() {
+    Ogre::Vector3 currentPos = OgreFramework::getSingletonPtr()->m_pCamera->getPosition();
+    if(currentPos.distance(pathPoints[nextPoint]) < 30) {
+        nextPoint++;
+        OgreFramework::getSingletonPtr()->m_pLog->logMessage("updated state to:" + Ogre::StringConverter::toString(nextPoint));
+    }
+}
+
 
 void ValleyApp::runGame()
 {
@@ -341,6 +370,9 @@ void ValleyApp::runGame()
 
             OgreFramework::getSingletonPtr()->m_pKeyboard->capture();
             OgreFramework::getSingletonPtr()->m_pMouse->capture();
+
+            updatePathState();
+            OgreFramework::getSingletonPtr()->setLookAtPoint(pathPoints[nextPoint]);
 
             OgreFramework::getSingletonPtr()->updateOgre(timeSinceLastFrame);
             OgreFramework::getSingletonPtr()->m_pRoot->renderOneFrame();
@@ -367,9 +399,9 @@ bool ValleyApp::keyPressed(const OIS::KeyEvent &keyEventRef)
 {
     OgreFramework::getSingletonPtr()->keyPressed(keyEventRef);
 
-    if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_F))
+    if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_K))
     {
-        //do something
+        nextPoint = 0;
     }
 
     return true;

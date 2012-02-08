@@ -36,11 +36,18 @@ class ValleyApp : public OIS::KeyListener
         void drawTrees();
         void drawFallenTrees();
         void drawPathLine();
+        float translateLinePointX(Ogre::Vector2);
+        float translateLinePointY(Ogre::Vector2);
+        Ogre::Vector3* setupPathPoints();
+        void updatePathState();
+
+        Ogre::Vector3* pathPoints;
 
         Ogre::TerrainGlobalOptions* mTerrainGlobals;
         Ogre::TerrainGroup* mTerrainGroup;
         Ogre::Vector2* line;
         bool mTerrainsImported;
+        int nextPoint;
 
         TerrainGenerator mGenerator;
 
