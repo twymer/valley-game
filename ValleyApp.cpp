@@ -242,7 +242,12 @@ void ValleyApp::drawFallenTrees() {
 }
 
 void ValleyApp::drawPathLine() {
-    Ogre::ManualObject* manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
+    Ogre::ManualObject* manual;
+    if(OgreFramework::getSingletonPtr()->m_pSceneMgr->hasManualObject("manual")) {
+        manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->getManualObject("manual");
+    } else {
+        manual = OgreFramework::getSingletonPtr()->m_pSceneMgr->createManualObject("manual");
+    }
     manual->begin("BaseWhiteNoLighting", Ogre::RenderOperation::OT_LINE_STRIP);
 
     //TODO: can't hardcode 6
@@ -255,7 +260,7 @@ void ValleyApp::drawPathLine() {
 
     manual->end();
 
-    Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+    Ogre::SceneNode* sn = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode("Path");
     sn->setScale(worldSize/512,1,worldSize/512);
     sn->translate(-worldSize/2,0, worldSize/2);
     sn->attachObject(manual);
@@ -275,7 +280,6 @@ void ValleyApp::setupGameScene()
 {
     line = mGenerator.getLine();
     pathPoints = setupPathPoints();
-    //drawPathLine();
 
     drawWater();
 
@@ -407,6 +411,15 @@ bool ValleyApp::keyPressed(const OIS::KeyEvent &keyEventRef)
     if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_K))
     {
         nextPoint = 0;
+    }
+
+    if(OgreFramework::getSingletonPtr()->m_pKeyboard->isKeyDown(OIS::KC_L))
+    {
+        if(OgreFramework::getSingletonPtr()->m_pSceneMgr->hasSceneNode("Path")) {
+            OgreFramework::getSingletonPtr()->m_pSceneMgr->destroySceneNode("Path");
+        } else {
+            drawPathLine();
+        }
     }
 
     return true;
