@@ -162,8 +162,8 @@ void TerrainGenerator::createTerrain(Ogre::String filename) {
     vec2 start, end;
     start.x = 5;
     start.y = 100;
-    end.x = 250;
-    end.y = 100;
+    end.x = 550;
+    end.y = 400;
     int total_points = DEPTH * DEPTH;
     points = form_line(DEPTH, start, end);
 

@@ -1,0 +1,6 @@
+import * from "resources/ogre/scripts/materials/base.material"
+
+material /global/environment/stone_boulder_mossy : /base/simple
+{
+    set_texture_alias DiffuseMap 3d_objects/environment/textures/stone_boulder_mossy/D.png
+}

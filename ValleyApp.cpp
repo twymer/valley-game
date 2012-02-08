@@ -163,8 +163,8 @@ void ValleyApp::drawRocks() {
 
         float xPos = -worldSize/2 + line[i].x/512 * worldSize;
         float zPos = worldSize/2 - line[i].y/512 * worldSize;
-        xPos += 25 * Ogre::Math::RangeRandom(-10, 10);
-        zPos += 25 * Ogre::Math::RangeRandom(-10, 10);
+        xPos += 25 * 12 * Ogre::Math::SymmetricRandom();
+        zPos += 25 * 12 * Ogre::Math::SymmetricRandom();
         float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
         rockNode->translate(xPos, yPos+10, zPos);
 
@@ -311,13 +311,13 @@ void ValleyApp::setupGameScene()
 
     //drawPathLine();
 
-    drawWater();
+    //drawWater();
 
     drawRocks();
 
-    drawTrees();
+    //drawTrees();
 
-    drawFallenTrees();
+    //drawFallenTrees();
 }
 
 void ValleyApp::runGame()

@@ -1,0 +1,14 @@
+material /global/environment/stone_boulder_mossy
+{
+  technique
+  {
+    pass
+    {
+      texture_unit
+      {
+        texture D.png
+        scale 0.5 0.5
+      }
+    }
+  }
+}
