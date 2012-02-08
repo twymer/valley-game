@@ -135,7 +135,7 @@ Ogre::Vector2* TerrainGenerator::getLine() {
 void TerrainGenerator::createTerrain(Ogre::String filename) {
     // Initialize noise objects
     module::Billow base_flat_terrain;
-    base_flat_terrain.SetFrequency(2.0);
+    base_flat_terrain.SetFrequency(0.7);
     module::ScaleBias flat_terrain;
     flat_terrain.SetSourceModule(0, base_flat_terrain);
     flat_terrain.SetScale(0.125);
