@@ -331,6 +331,8 @@ void ValleyApp::setupGameScene()
         }
     }
 
+    OgreFramework::getSingletonPtr()->m_pSceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8);
+
     mTerrainGroup->freeTemporaryResources();
 
     drawRocks();
