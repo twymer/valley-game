@@ -264,11 +264,7 @@ void OgreFramework::getInput()
         m_TranslateVector.z = -m_MoveScale;
 
     if(m_pKeyboard->isKeyDown(OIS::KC_S))
-    {
         m_TranslateVector.z = m_MoveScale;
-        Vector3 camera_pos = m_pCamera->getRealPosition();
-        m_pLog->logMessage(Ogre::StringConverter::toString(camera_pos));
-    }
 }
 
 void OgreFramework::setLookAtPoint(Ogre::Vector3 vector)
