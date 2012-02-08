@@ -311,13 +311,13 @@ void ValleyApp::setupGameScene()
 
     //drawPathLine();
 
-    //drawWater();
+    drawWater();
 
-    //drawRocks();
+    drawRocks();
 
     drawTrees();
 
-    //drawFallenTrees();
+    drawFallenTrees();
 }
 
 void ValleyApp::runGame()
