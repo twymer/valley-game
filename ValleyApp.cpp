@@ -149,11 +149,12 @@ void ValleyApp::drawWater() {
 }
 
 void ValleyApp::drawRocks() {
+    // Drop some smaller ones on the bottom for looks
     for(int i=0; i < 6*6; i++) {
         Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
         Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
 
-        float scale = Ogre::Math::RangeRandom(10,40);
+        float scale = Ogre::Math::RangeRandom(5,15);
         rockNode->setScale(scale, scale, scale);
 
         Ogre::Quaternion orientation;
@@ -162,8 +163,31 @@ void ValleyApp::drawRocks() {
 
         float xPos = -worldSize/2 + line[i].x/512 * worldSize;
         float zPos = worldSize/2 - line[i].y/512 * worldSize;
-        xPos += 25 * Ogre::Math::RangeRandom(-25, 25);
-        zPos += 25 * Ogre::Math::RangeRandom(-25, 25);
+        xPos += 25 * Ogre::Math::RangeRandom(-10, 10);
+        zPos += 25 * Ogre::Math::RangeRandom(-10, 10);
+        float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
+        rockNode->translate(xPos, yPos+10, zPos);
+
+        rockNode->attachObject(entRock);
+    }
+
+    // A few large ones for obstacles
+    for(int i=0; i < (int)6*6; i+=4) {
+        Ogre::Entity* entRock = OgreFramework::getSingletonPtr()->m_pSceneMgr->createEntity("boulder_02.mesh");
+        Ogre::SceneNode* rockNode = OgreFramework::getSingletonPtr()->m_pSceneMgr->getRootSceneNode()->createChildSceneNode();
+
+        float scale = Ogre::Math::RangeRandom(25,50);
+        rockNode->setScale(scale, scale, scale);
+
+        Ogre::Quaternion orientation;
+        orientation.FromAngleAxis(Ogre::Degree(Ogre::Math::RangeRandom(0,359)), Ogre::Vector3::UNIT_SCALE);
+        rockNode->rotate(orientation);
+
+        float xPos = -worldSize/2 + line[i].x/512 * worldSize;
+        float zPos = worldSize/2 - line[i].y/512 * worldSize;
+        float side = Ogre::Math::UnitRandom() < .5 ? -1 : 1;
+        xPos += 25 * Ogre::Math::RangeRandom(10, 15) * side;
+        zPos += 25 * Ogre::Math::RangeRandom(10, 15) * side;
         float yPos = mTerrainGroup->getHeightAtWorldPosition(xPos, 9999, zPos);
         rockNode->translate(xPos, yPos+10, zPos);
 
