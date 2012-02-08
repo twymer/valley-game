@@ -1,0 +1,8 @@
+import * from "resources/ogre/scripts/materials/base.material"
+
+material /global/plants/trees/oak : /base/normalmap/specular/nonculled/alpharejected
+{
+    set_texture_alias DiffuseMap 3d_objects/plants/trees/textures/oak/D.png
+    set_texture_alias NormalHeightMap 3d_objects/plants/trees/textures/oak/N.png
+    set_texture_alias SpecularMap 3d_objects/plants/trees/textures/oak/S.png
+}

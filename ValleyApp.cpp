@@ -313,9 +313,9 @@ void ValleyApp::setupGameScene()
 
     //drawWater();
 
-    drawRocks();
+    //drawRocks();
 
-    //drawTrees();
+    drawTrees();
 
     //drawFallenTrees();
 }
