@@ -1,0 +1,39 @@
+float4 calcLightning
+(
+	float3 P,
+	float3 N,
+
+	float4 lightDiffuseColour,
+	float4 lightSpecularColour,
+	float4 lightAttenuation,		// light attenuation parameters, (range, constant, linear, quadric)
+	float4 lightPosition			// light position, point lights will be (pos.x, pos.y, pos.z, 1.0f)
+									// whilst directional lights will be (-dir.x, -dir.y, -dir.z, 0.0f)
+)
+{
+	float4 diffuseResult;
+
+	float3 L = normalize(lightPosition.xyz - P * lightPosition.w);
+
+	float att;
+	if (lightPosition.w == 1.0) // positional light
+	{
+		float d = distance(lightPosition.xyz, P);
+
+		if (d >= lightAttenuation.x) { // light is too far away
+			// att = 0;
+			// diffuseResult = 0;
+			return 0.0;
+		}
+
+		att = 1.0 / (lightAttenuation.y + lightAttenuation.z * d + lightAttenuation.w * d * d);
+	}
+	else // directional
+	{
+		att = 1.0;
+	}
+
+	float diffuseLight = saturate(dot(N, L));
+	diffuseResult = att * lightDiffuseColour * diffuseLight;
+
+	return diffuseResult;
+}

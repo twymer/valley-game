@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/media/!svn/ver/2945/trunk/resources/ogre/core
+END
+EmberCore.material
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/media/!svn/ver/2774/trunk/resources/ogre/core/EmberCore.material
+END
+norecurse
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/media/!svn/ver/2889/trunk/resources/ogre/core/norecurse
+END
+EmberLoadingPanel.overlay
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/media/!svn/ver/2945/trunk/resources/ogre/core/EmberLoadingPanel.overlay
+END
+Ember.fontdef
+K 25
+svn:wc:ra_dav:version-url
+V 64
+/svn/media/!svn/ver/2945/trunk/resources/ogre/core/Ember.fontdef
+END

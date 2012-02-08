@@ -1,0 +1,93 @@
+import * from "resources/ogre/scripts/materials/base.material"
+
+material /global/ember/terraindecal
+{
+	technique
+	{
+		pass
+		{
+			ambient 1 1 1
+			diffuse 1 1 1
+			lighting off
+			scene_blend alpha_blend 
+			fog_override true
+			depth_bias 16
+			texture_unit
+			{
+				tex_address_mode border
+				tex_border_colour 0.0 0.0 0.0 0.0 
+				texture resources/ogre/textures/terraindecal.png
+			}
+		}
+	}
+} 
+
+material /global/authoring/polygon/line
+{
+	technique
+	{
+		pass
+		{
+			depth_write on
+			depth_check off
+			fog_override true
+ 			lighting off
+// 			emissive 0 0 1.0
+			cull_hardware none
+			cull_software none
+		}
+	}
+}
+
+material /global/authoring/point
+{
+	technique
+	{
+		pass
+		{
+			diffuse 0 0 1 1
+			ambient 0 0 1
+			emissive 0 0 1
+			fog_override true
+		}
+	}
+}
+material /global/authoring/point/moved
+{
+	technique
+	{
+		pass
+		{
+			diffuse 1 0 0 1
+			ambient 1 0 0
+			emissive 1 0 0
+			fog_override true
+		}
+	}
+}
+material /global/authoring/point/moving
+{
+	technique
+	{
+		pass
+		{
+			diffuse 1 1 0 1
+			ambient 1 1 0
+			emissive 1 1 0
+			fog_override true
+		}
+	}
+}
+material /global/authoring/bbox
+{
+	technique
+	{
+		pass
+		{
+			diffuse 1 1 0.7 1
+			ambient 1 1 0.7
+			emissive 1 1 0.7
+			fog_override true
+		}
+	}
+}

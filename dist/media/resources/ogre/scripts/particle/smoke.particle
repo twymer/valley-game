@@ -1,0 +1,83 @@
+// Example particle systems
+
+// smoke
+particle_system /global/particles/fire
+{
+    	material        	/global/environment/fire
+    	particle_width  	0.1
+    	particle_height 	0.1
+    	cull_each       	false
+    	quota           	100
+    	billboard_type  	point
+    
+    	// Area emitter
+    	emitter Point
+	{
+		angle               		11
+        	emission_rate       		100
+        	time_to_live        		2
+        	direction           		0 1 0
+        	velocity_min        		0.1
+        	velocity_max        		0.5    	
+	}
+
+
+   	affector Rotator
+	{
+        	rotation_range_start  		0
+        	rotation_range_end   	 	360
+        	rotation_speed_range_start  	-60
+        	rotation_speed_range_end    	200
+	}
+
+
+
+}
+
+
+particle_system /global/particles/smoke
+{
+    	material        	/global/environment/smoke
+    	particle_width  	0.5
+    	particle_height 	0.5
+    	cull_each       	false
+    	quota           	400
+    	billboard_type  	point
+    
+    	// Area emitter
+    	emitter Point
+    	{
+		angle               		11
+        	emission_rate				50
+        	time_to_live        		8
+        	direction           		0 1 0
+        	velocity_min        		0.2
+        	velocity_max        		1.0
+	}
+
+	affector ColourImage
+	{
+		image		3d_objects/environment/textures/smoke/colors/D.png
+	}
+
+   	affector Rotator
+   	{
+        	rotation_range_start  		0
+        	rotation_range_end   	 	360
+        	rotation_speed_range_start  	-60
+        	rotation_speed_range_end    	200
+   	}
+
+   	affector Scaler
+   	{
+       	rate 	0.1
+   	}
+
+	affector DirectionRandomiser
+	{
+		randomness 1
+		scope 0.3
+		keep_velocity false
+	}
+
+}

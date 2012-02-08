@@ -1,0 +1,107 @@
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svn/media/!svn/ver/3086/trunk/resources/ogre/scripts/programs/old
+END
+OffsetMapping_specular.asm
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/OffsetMapping_specular.asm
+END
+Example_Projection.cg
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Example_Projection.cg
+END
+Example_BumpMapping.cg
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Example_BumpMapping.cg
+END
+All_In_Wonder.program
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/All_In_Wonder.program
+END
+Examples.program
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Examples.program
+END
+Example_Basic.cg
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Example_Basic.cg
+END
+OffsetMappingFp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/OffsetMappingFp.glsl
+END
+OffsetMapping.cg
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/OffsetMapping.cg
+END
+Example_Basic.hlsl
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Example_Basic.hlsl
+END
+Light.cg
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Light.cg
+END
+OffsetMapping.hlsl
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/OffsetMapping.hlsl
+END
+Example_CelShading.cg
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Example_CelShading.cg
+END
+All_In_Wonder.cg
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/All_In_Wonder.cg
+END
+norecurse
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/media/!svn/ver/3084/trunk/resources/ogre/scripts/programs/old/norecurse
+END
+splat.program.old
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/splat.program.old
+END
+Animation.cg
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/Animation.cg
+END
+OffsetMappingVp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 87
+/svn/media/!svn/ver/3061/trunk/resources/ogre/scripts/programs/old/OffsetMappingVp.glsl
+END

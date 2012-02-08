@@ -1,0 +1,163 @@
+vertex_program fog_linear_vp cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point fog_linear_vp
+	profiles vs_2_0 arbvp1 
+}
+
+vertex_program fog_exp2_vp cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point fog_exp2_vp
+	profiles vs_2_0 arbvp1 
+}
+
+// fragment_program splatting_fragment_dynamic cg
+// {
+// 	source resources/ogre/scripts/programs/Splat.cg
+// 	entry_point splat_fp_dynamic
+// 	profiles ps_2_0 arbfp1
+// }
+
+fragment_program splatting_fragment_1 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=1"
+}
+
+fragment_program splatting_fragment_2 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=2"
+}
+
+fragment_program splatting_fragment_3 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=3"
+}
+
+fragment_program splatting_fragment_4 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=4"
+}
+
+fragment_program splatting_fragment_5 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=5"
+}
+
+fragment_program splatting_fragment_6 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=6"
+}
+
+fragment_program splatting_fragment_7 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=7"
+}
+
+fragment_program splatting_fragment_8 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=8"
+}
+
+fragment_program splatting_fragment_9 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=9"
+}
+
+fragment_program splatting_fragment_10 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=10"
+}
+
+fragment_program splatting_fragment_11 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=11"
+}
+
+fragment_program splatting_fragment_12 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_fp
+	profiles ps_2_0 arbfp1
+	compile_arguments "-DNUM_LAYERS=12"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+vertex_program splatting_vertex_normalmapped cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point SplattingShaderParallax_vp
+	profiles vs_2_0 arbvp1
+}
+vertex_program splatting_vertex_normalmapped_exp2 cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point SplattingShaderParallaxExp2_vp
+	profiles vs_2_0 arbvp1
+}
+
+fragment_program splatting_fragment_normalmapped_dynamic cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splat_normalmapped_fp
+	profiles ps_2_0 arbfp1
+}
+
+fragment_program splatatlas_cg cg
+{
+	source resources/ogre/scripts/programs/Splat.cg
+	entry_point splatatlas_fp
+	profiles ps_2_0 arbfp1
+}
+
+//vertex_program splat_vp_cg cg
+//{
+//	source resources/ogre/scripts/programs/Splat.cg
+//	entry_point splat_vp
+//	profiles vs_1_1 arbvp1
+//}
+

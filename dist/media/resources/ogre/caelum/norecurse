@@ -1,0 +1,1 @@
+Any media directory containing a file named "norecurse" won't be traversed by Ember.

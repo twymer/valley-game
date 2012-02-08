@@ -1,0 +1,43 @@
+import * from "resources/ogre/scripts/materials/base.material"
+
+material /ui/compass
+{
+	technique General
+	{
+		pass Main
+		{
+			scene_blend alpha_blend
+			ambient 1.0 1.0 1.0
+			diffuse 1.0 1.0 1.0
+			texture_unit Background
+			{
+				texture_alias Background
+				scale 2 2
+			}
+			texture_unit AlphaMap
+			{
+				texture themes/ember/gui/compass/inner_alpha.png 2d 0 alpha
+				colour_op_ex blend_texture_alpha  src_current src_texture
+				
+			}
+		}
+	}
+}
+
+material /ui/compass/pointer
+{
+	technique General
+	{
+		pass Main
+		{
+			scene_blend alpha_blend
+			texture_unit Pointer
+			{
+				texture themes/ember/gui/compass/arrow.png
+				scale 0.5 0.5
+				tex_address_mode border
+				tex_border_colour 0.0 0.0 0.0 0.0
+			}
+		}
+	}
+}

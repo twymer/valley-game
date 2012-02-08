@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/media/!svn/ver/3410/trunk/resources/ogre/scripts/programs
+END
+DepthShadowmapCasterVp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/media/!svn/ver/3055/trunk/resources/ogre/scripts/programs/DepthShadowmapCasterVp.glsl
+END
+Splat.program
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/media/!svn/ver/3410/trunk/resources/ogre/scripts/programs/Splat.program
+END
+LightingFp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/media/!svn/ver/3410/trunk/resources/ogre/scripts/programs/LightingFp.glsl
+END
+Example_FresnelPS.asm
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/media/!svn/ver/3086/trunk/resources/ogre/scripts/programs/Example_FresnelPS.asm
+END
+check_compile.sh
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/media/!svn/ver/3069/trunk/resources/ogre/scripts/programs/check_compile.sh
+END
+Common.program
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/media/!svn/ver/3410/trunk/resources/ogre/scripts/programs/Common.program
+END
+DepthShadowmapCasterFp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/media/!svn/ver/3055/trunk/resources/ogre/scripts/programs/DepthShadowmapCasterFp.glsl
+END
+Example_Fresnel.cg
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/media/!svn/ver/3086/trunk/resources/ogre/scripts/programs/Example_Fresnel.cg
+END
+DepthShadowmap.material
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/media/!svn/ver/3043/trunk/resources/ogre/scripts/programs/DepthShadowmap.material
+END
+Grass.cg
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/media/!svn/ver/2890/trunk/resources/ogre/scripts/programs/Grass.cg
+END
+WaterFp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/media/!svn/ver/3292/trunk/resources/ogre/scripts/programs/WaterFp.glsl
+END
+SplatFp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/media/!svn/ver/3410/trunk/resources/ogre/scripts/programs/SplatFp.glsl
+END
+Splat.cg
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/media/!svn/ver/3010/trunk/resources/ogre/scripts/programs/Splat.cg
+END
+LightingVp.glsl
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/media/!svn/ver/3409/trunk/resources/ogre/scripts/programs/LightingVp.glsl
+END
+DepthShadowmap.program
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/media/!svn/ver/3055/trunk/resources/ogre/scripts/programs/DepthShadowmap.program
+END
