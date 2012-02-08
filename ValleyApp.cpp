@@ -97,8 +97,8 @@ void ValleyApp::initBlendMaps(Ogre::Terrain* terrain)
     Ogre::TerrainLayerBlendMap* blendMap1 = terrain->getLayerBlendMap(2);
     Ogre::Real minHeight0 = 70;
     Ogre::Real fadeDist0 = 40;
-    Ogre::Real minHeight1 = 70;
-    Ogre::Real fadeDist1 = 15;
+    Ogre::Real minHeight1 = 900;
+    Ogre::Real fadeDist1 = 350;
     float* pBlend0 = blendMap0->getBlendPointer();
     float* pBlend1 = blendMap1->getBlendPointer();
     for (Ogre::uint16 y = 0; y < terrain->getLayerBlendMapSize(); ++y)
